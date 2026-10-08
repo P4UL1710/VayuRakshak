@@ -1,0 +1,14 @@
+{
+  "name": "@vayurakshak/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./data/*": "./src/data/*.ts",
+    "./types/*": "./src/types/*.ts",
+    "./snapshot": "./src/snapshot.ts",
+    "./assistant": "./src/assistant.ts"
+  },
+  "scripts": {"typecheck": "tsc --noEmit"},
+  "devDependencies": {"typescript": "^6.0.3"}
+}

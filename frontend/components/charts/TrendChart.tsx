@@ -1,0 +1,6 @@
+"use client";
+import {Bar,BarChart,CartesianGrid,ResponsiveContainer,Tooltip,XAxis,YAxis} from "recharts";
+import {useApp} from "@/components/layout/AppProvider";
+export function TrendChart({data,color="#0F766E",label}:{data:{label:string;value:number}[];color?:string;label:string}){return <div className="chart-wrap" role="img" aria-label={label+". "+data.map(d=>d.label+": "+d.value).join(", ")}><ResponsiveContainer width="100%" height="100%"><BarChart data={data} margin={{top:15,right:0,left:-22,bottom:0}}><CartesianGrid vertical={false} stroke="#E7EEEA" strokeDasharray="3 3"/><XAxis dataKey="label" axisLine={false} tickLine={false} tick={{fontSize:10,fill:"#59706D"}}/><YAxis axisLine={false} tickLine={false} tick={{fontSize:9,fill:"#59706D"}}/><Tooltip cursor={{fill:"#EEF5F5"}} contentStyle={{borderRadius:10,borderColor:"#D9E6E4",fontSize:11}}/><Bar dataKey="value" name={label} fill={color} radius={[4,4,0,0]} maxBarSize={25} isAnimationActive={false}/></BarChart></ResponsiveContainer></div>;}
+export function FireTrendChart(){const {data:{fireTrend}}=useApp();return <TrendChart data={fireTrend} color="#DB9558" label="Demo fire detections"/>;}
+export function ExposureChart(){const {data:{exposureWeek}}=useApp();return <TrendChart data={exposureWeek} label="Estimated exposure score"/>;}

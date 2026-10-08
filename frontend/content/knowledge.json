@@ -1,0 +1,162 @@
+[
+  {
+    "title": "VayuRakshak in one minute",
+    "slug": "overview",
+    "route": "/dashboard",
+    "section": "project-overview",
+    "tags": [
+      "overview",
+      "project",
+      "vayurakshak",
+      "what",
+      "minute"
+    ],
+    "text": "VayuRakshak AI helps Delhi-NCR residents act before poor air quality affects their routine.\n\nFirst, it tracks air conditions and forecasts when pollution risk may rise. The MVP uses clearly labelled illustrative data, not a live sensor feed.\n\nSecond, it compares commute routes and suggests lower-exposure options based on predicted air conditions, travel time, and local signals.\n\nThird, it turns this information into a Tomorrow’s Air Plan—showing when to leave, which route to take, and what indoor protection steps may help.\n\nFinally, if you opt in, Protection Autopilot can schedule a connected purifier when your chosen indoor protection threshold is reached. You always approve automation rules, calendar changes, and data connections.\n\nVayuRakshak is designed as wellness and environmental decision support. It does not provide medical diagnosis. We don’t just inform. We protect.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Forecast and Tomorrow’s Air Plan",
+    "slug": "dashboard",
+    "route": "/dashboard",
+    "section": "tomorrow-plan",
+    "tags": [
+      "forecast",
+      "dashboard",
+      "tomorrow",
+      "aqi",
+      "plan",
+      "leave"
+    ],
+    "text": "Pawan’s demo at IIT Delhi / Hauz Khas has current AQI 218 (Poor), PM2.5 142 µg/m³, wind 7 km/h NW and humidity 61%. Tomorrow’s illustrative peak is AQI 286 between 7:00 and 10:30 AM, with moderate confidence. The scenario labels 286 Very Poor; official CPCB bands place 201–300 in Poor. This demo classification must not be used as an official live classification.\n\nTomorrow’s Air Plan: leave at 8:55 AM via the Balanced Route for 28% lower route-only estimated exposure. The dashboard separately offers a 9:05 AM delayed cleaner-route scenario with 31% lower estimated exposure; these are different illustrative baselines. Review outdoor plans and consider indoor activity during the peak. A bedroom-purifier pre-start at 6:30 AM requires approval. Forecasts are uncertain and reductions are illustrative, not guaranteed.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Clean Routes",
+    "slug": "clean-routes",
+    "route": "/routes",
+    "section": "how-exposure-is-estimated",
+    "tags": [
+      "route",
+      "routes",
+      "cleaner",
+      "commute",
+      "exposure",
+      "balanced",
+      "cleanest"
+    ],
+    "text": "The demo corridor runs from IIT Delhi to Connaught Place. Fastest: 42 minutes, exposure score 86. Cleanest: 56 minutes, score 49, 43% lower estimated exposure. Balanced: 48 minutes, score 62, 28% lower estimated exposure. Recommended departure is 8:55 AM via the Balanced Route, saving 8 minutes compared with Cleanest.\n\nEstimated exposure combines route duration, forecast PM2.5, traffic intensity and local air-quality signals. Percentage reduction equals (86 minus alternative score) / 86, rounded. It is not measured inhaled dose or clinical risk. Walking, cycling, two-wheeler, car and metro options use demo duration multipliers. Custom destinations still display the illustrative sample corridor. The 35-minute delay example uses a separate forecast-timing scenario.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Regional Pollution Signals",
+    "slug": "fire-tracker",
+    "route": "/fire-tracker",
+    "section": "regional-signals",
+    "tags": [
+      "fire",
+      "fires",
+      "tracker",
+      "regional",
+      "wind",
+      "stubble",
+      "punjab"
+    ],
+    "text": "The Fire Tracker displays 114 illustrative active regional fire detections in the last 24 hours. The highest cluster is Punjab. Northwesterly wind indicates potential influence on Delhi tomorrow morning, with medium confidence. Seven-day trends and wind ribbons show regional context.\n\nFarm fires may contribute to regional air pollution. They are one of several sources: local traffic, dust, industry, weather and regional transport can combine to worsen Delhi’s air. A fire detection alone does not measure its contribution to Delhi pollution. NASA FIRMS and weather integrations are future provider interfaces, not active feeds in this prototype.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Your Air Protection Plan",
+    "slug": "health-insights",
+    "route": "/health",
+    "section": "wellness-guidance",
+    "tags": [
+      "health",
+      "asthma",
+      "wellness",
+      "wearable",
+      "fitness",
+      "child",
+      "symptoms"
+    ],
+    "text": "Health Insights offers selectable General, Child, Asthma, Elderly and Fitness preferences. These preferences adapt environmental wellness guidance; they do not diagnose disease. Review the forecast, consider reducing prolonged outdoor exertion during poor air, and choose a lower-exposure commute. For concerning symptoms or urgent needs, consider consulting a clinician.\n\nOptional demo wearable values are sleep score 72, resting heart rate +4 bpm and HRV trend -9%. These are illustrative wellness observations and cannot establish that pollution caused a health change. A shareable local summary can be previewed and downloaded only on request. Disconnecting the wearable hides its trends. No doctor booking or automatic sharing is available.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Protection Autopilot and risk score",
+    "slug": "automations",
+    "route": "/automations",
+    "section": "protection-autopilot",
+    "tags": [
+      "risk",
+      "score",
+      "autopilot",
+      "purifier",
+      "automation",
+      "safe",
+      "approval",
+      "rule"
+    ],
+    "text": "Indoor Protection Risk Score is a transparent 0–100 decision-support score, not medically validated. Weights: forecast AQI 35%, spike duration 15%, optional indoor PM2.5 25%, occupancy proximity 10%, sensitivity preference 10%, ventilation 5%. Inputs are bounded. Missing indoor readings are excluded and remaining weights normalized. The demo computes 74 / 100 (High); displayed whole-point contributions sum exactly.\n\nBands are Low 0–29, Elevated 30–59, High 60–79 and Severe 80–100. High suggests standard purifier pre-start 30 minutes before occupancy; Severe suggests turbo filtration and indoor guidance.\n\nRecommend creates suggestions only. Ask Every Time requires each approval. Autopilot requires an explicitly approved narrow morning-protection policy: bedroom purifier, score at or above the chosen threshold (minimum 60), 30 minutes before 7 AM occupancy, Standard at 60–79 and Turbo at 80–100. Allow once schedules one demo action. Always allow this rule enables that policy. Pause, disable or edit cancels active schedules; edited rules require new approval. No real device is controlled.\n\nThe mock workflow validates approval in Step Functions, records it in simulated DynamoDB, schedules 6:30 AM IST via EventBridge, leaves the device webhook pending, and previews a Telegram confirmation only if that integration and notifications are enabled. No external message is sent.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Calendar Guard",
+    "slug": "calendar-guard",
+    "route": "/calendar",
+    "section": "calendar-guard",
+    "tags": [
+      "calendar",
+      "run",
+      "outdoor",
+      "event",
+      "reschedule",
+      "practice"
+    ],
+    "text": "Calendar Guard flags Morning Run, Saturday 7 AM, forecast AQI 312 (Very Poor). Alternatives are Saturday 2 PM (AQI 182), Sunday 6:30 AM (AQI 155) or an indoor workout. College commute and cricket practice are also visible.\n\nSelecting a slot prepares a draft. Add suggestion to calendar opens an approval dialog. Cancelling makes no change; approving adds a mock suggestion while preserving the original event. VayuRakshak never automatically changes a calendar or messages contacts. All calendar data and changes in this prototype are simulated.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Privacy and user control",
+    "slug": "privacy-and-safety",
+    "route": "/settings",
+    "section": "privacy-controls",
+    "tags": [
+      "privacy",
+      "store",
+      "data",
+      "settings",
+      "consent",
+      "delete",
+      "audio",
+      "tts"
+    ],
+    "text": "Preferences, approvals, device schedules, calendar suggestions and chat remain in session memory and reset on refresh. Guide-only preferences (mute, optional narration, idle help and completed tour) are stored locally; guide progress and dismissal use session storage. Sensitive chat, health data and credentials are not saved in browser storage. Chat input is sent to the site’s own API when submitted. No third-party AI model receives guide questions in the default local retriever.\n\nThe guide answers only from controlled website documentation with source links. Unknown questions get a verified-answer fallback. Narration never starts on idle or chat arrival. Listen or Start with audio explicitly starts speech; browser speech synthesis is labelled as a browser fallback and may use a browser/vendor speech service. Optional Edge TTS sends the selected guide text through a configured server provider; the endpoint rejects text outside curated guide narration. Do not put personal information into narration.\n\nDisconnect integrations anytime. Delete mock data clears personal session state; clear guide preferences separately. Credentials remain server-side. No purchases, unsolicited messages, automatic calendar edits or device actions before approval.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  },
+  {
+    "title": "Architecture and project FAQ",
+    "slug": "faq",
+    "route": "/architecture",
+    "section": "aws-architecture",
+    "tags": [
+      "aws",
+      "architecture",
+      "backend",
+      "bedrock",
+      "deploy",
+      "faq",
+      "approach"
+    ],
+    "text": "The deployable project uses Next.js 16 and React 19 with TypeScript and Tailwind, an independent Node API, and npm workspaces. Default data providers and all consequential actions are mocks. The backend has air, weather, forecast, fire, route, calendar, messaging, device and wearable adapter contracts.\n\nAWS design: Amplify or CloudFront hosts the frontend; API Gateway invokes Lambda; DynamoDB stores preferences, plans, policies, approvals and audit records. Step Functions validates user consent before EventBridge Scheduler schedules a device webhook. Telegram or SNS adapters deliver approved notifications. CloudWatch captures workflow logs. Amazon Bedrock is an optional future grounded explanation provider. The current diagram is a target deployment architecture, not provisioned cloud resources. Docker and separate frontend/backend deployment are supported.",
+    "lastUpdated": "2026-10-08",
+    "sourceType": "curated"
+  }
+]

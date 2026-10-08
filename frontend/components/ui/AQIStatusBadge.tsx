@@ -1,0 +1,2 @@
+import {categorize} from "@/lib/aqi";
+export function AQIStatusBadge({aqi}:{aqi:number}){const {label,color}=categorize(aqi);return <span className="aqi-badge inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1 text-xs font-semibold" style={{borderColor:color+"33",background:color+"12",color:"#102A2A"}}><span aria-hidden className="h-1.5 w-1.5 rounded-full" style={{background:color}}/>{label}</span>;}

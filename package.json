@@ -1,0 +1,23 @@
+{
+  "name": "vayurakshak-ai",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["frontend", "backend", "shared"],
+  "engines": {"node": ">=22"},
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:frontend": "npm run dev --workspace=@vayurakshak/frontend",
+    "dev:backend": "npm run dev --workspace=@vayurakshak/backend",
+    "build": "npm run build --workspace=@vayurakshak/backend && npm run build --workspace=@vayurakshak/frontend",
+    "build:frontend": "npm run build --workspace=@vayurakshak/frontend",
+    "build:backend": "npm run build --workspace=@vayurakshak/backend",
+    "start": "node scripts/dev.mjs --production",
+    "start:frontend": "npm run start --workspace=@vayurakshak/frontend",
+    "start:backend": "npm run start --workspace=@vayurakshak/backend",
+    "lint": "npm run lint --workspace=@vayurakshak/frontend",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test --workspace=@vayurakshak/backend && npm run test --workspace=@vayurakshak/frontend",
+    "test:e2e": "npm run test:e2e --workspace=@vayurakshak/frontend",
+    "test:deployment": "node scripts/verify-deployment.mjs"
+  }
+}

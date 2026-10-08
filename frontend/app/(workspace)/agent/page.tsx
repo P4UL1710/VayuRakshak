@@ -1,0 +1,2 @@
+import {AgentChatPreview} from "@/components/agent/AgentChatPreview";
+export default function Agent(){return <div className="max-w-3xl mx-auto"><div className="page-heading"><div><p className="eyebrow">A CONVERSATION THAT LEADS TO ACTION</p><h1>Meet your air guardian.</h1><p>Ask about your commute, tomorrow’s air, or your protection plan.</p></div></div><AgentChatPreview expanded/><p className="fine-print mt-5">This rule-based demo assistant does not diagnose or contact anyone. Telegram and WhatsApp are future integrations.</p></div>;}

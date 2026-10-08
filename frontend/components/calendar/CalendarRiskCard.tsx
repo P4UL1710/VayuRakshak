@@ -1,0 +1,2 @@
+import {TriangleAlert} from "lucide-react";
+export function CalendarRiskCard(){return <section className="calendar-risk"><h3><TriangleAlert size={18}/>Your morning run deserves a better window.</h3><p>Morning Run overlaps with forecast AQI <strong>312 — Very Poor.</strong></p><p className="fine-print">Saturday · 7:00 AM · 45 minutes outdoors. Consider reducing outdoor exertion or choosing an alternative.</p></section>;}

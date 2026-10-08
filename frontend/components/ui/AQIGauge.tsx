@@ -1,0 +1,1 @@
+export function AQIGauge({aqi}:{aqi:number}){return <div role="img" aria-label={"Demo AQI scale; current value "+aqi}><div className="aqi-gauge">{["#22C55E","#EAB308","#F97316","#EF4444","#7F1D1D"].map(c=><span key={c} style={{background:c}}/>)}</div><div className="gauge-labels"><span>Good</span><span>Poor</span><span>Severe</span></div></div>;}

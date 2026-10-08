@@ -1,0 +1,5 @@
+"use client";
+import {AirMap} from "@/components/maps/AirMap";
+import {AQIStatusBadge} from "@/components/ui/AQIStatusBadge";
+import {current} from "@vayurakshak/shared/data/mock-air-data";
+export default function MapPage(){return <div className="section-stack"><div className="page-heading"><div><p className="eyebrow">DELHI-NCR AIR INTELLIGENCE</p><h1>See the air around you.</h1><p>Explore representative stations and your commute. Select a marker for its demo reading.</p></div><span className="badge amber">Demo map · no live feed</span></div><section className="card"><div className="card-header"><h2>Delhi-NCR station overview</h2><AQIStatusBadge aqi={current.aqi}/></div><div className="route-map" style={{height:"min(65vh,580px)"}}><AirMap interactive allRoutes/><div className="map-legend"><span><i style={{background:"#0F766E"}}/>Cleaner route</span><span><i style={{background:"#E1AA39"}}/>Balanced route</span><span><i style={{background:"#E9A465"}}/>Elevated pollution signals</span></div></div></section><div className="notice">This map is a schematic prototype, not a navigational map. AQI stations and heat layers are illustrative.</div></div>;}
