@@ -67,11 +67,12 @@ test("desktop dashboard screenshot and demo API provenance",async({page,request}
  const response=await request.get("/api/air");expect(response.status()).toBe(200);
  const data=await response.json();expect(data.conditions.source).toBe("demo");expect(data.forecast.source).toBe("demo");
 });
-test("the dashboard safer-route link opens its delayed cleaner plan",async({page})=>{
+test("the dashboard safer-route link opens the balanced morning plan",async({page})=>{
  await page.goto("/dashboard");
  await page.getByRole("link",{name:"View safer route"}).click();
- await expect(page.getByText("Leave at 9:05 AM via the Cleanest Route.",{exact:true})).toBeVisible();
- await expect(page.getByRole("button",{name:/Cleanest Route/})).toHaveAttribute("aria-pressed","true");
+ await expect(page.getByText("Recommended: Leave at 8:55 AM via the Balanced Route.",{exact:true})).toBeVisible();
+ await expect(page.getByRole("button",{name:/Balanced Route/})).toHaveAttribute("aria-pressed","true");
+ await expect(page.getByRole("combobox",{name:"DEPARTURE · TOMORROW",exact:true})).toHaveValue("8:55 AM");
 });
 test("chat approval is visible in automation history and can be revoked",async({page})=>{
  await page.goto("/agent");
@@ -111,7 +112,7 @@ test("frontend displays bootstrap API values rather than fixture-only values",as
 });
 test("chat submission reaches the backend through the frontend proxy",async({page})=>{
  await page.goto("/agent");
- await page.getByLabel("Ask your air guardian").fill("Why are fire detections relevant?");
+ await page.getByRole("textbox",{name:"Ask your air guardian"}).fill("Why are fire detections relevant?");
  const responsePromise=page.waitForResponse(response=>response.url().endsWith("/api/agent")&&response.request().method()==="POST");
  await page.getByRole("button",{name:"Send question"}).click();
  const response=await responsePromise;expect(response.status()).toBe(200);expect((await response.json()).backendAvailable).toBe(true);

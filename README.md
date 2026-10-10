@@ -1,5 +1,7 @@
 # VAYURAKSHAK AI
 
+Updated MVP: see [IMPLEMENTATION.md](IMPLEMENTATION.md) for Vayu Guide, grounded local retrieval, optional Edge TTS, ingestion, the explainable 74/100 risk score, Autopilot approval/cancellation, AWS workflow and the complete judge demo.
+
 “We don’t just inform. We protect.”
 
 A complete air-protection hackathon MVP with separately deployable **Next.js frontend** and **Node.js backend**, managed by npm workspaces. TypeScript models and demo data are shared between both services.
@@ -51,9 +53,9 @@ The frontend requests its bootstrap data and assistant replies through its same-
 
 Landing page with a lightweight atmospheric globe, CSS mobile/WebGL fallback and reduced-motion support; dashboard with 72-hour forecast, map and exposure summary; route comparison and delayed-departure scenarios; regional fire signals; personal wellness guidance and locally downloadable summary; purifier approvals and approval history; Calendar Guard suggestions; demo service connections and privacy controls.
 
-Pages: `/`, `/dashboard`, `/map`, `/routes`, `/fire-tracker`, `/health`, `/automations`, `/calendar`, `/settings`, `/agent`.
+Pages: `/`, `/login`, `/architecture`, `/dashboard`, `/map`, `/routes`, `/fire-tracker`, `/health`, `/automations`, `/calendar`, `/settings`, `/agent`.
 
-All readings and external actions are simulated. Preferences, approval history and calendar suggestions remain in memory and reset on refresh. Chat questions and the selected demo profile are sent to your own backend on submission; no third-party service receives them. The demo backend has no database, user accounts or consequential write endpoints.
+All readings and external actions are simulated. Preferences, approval history and calendar suggestions remain in memory and reset on refresh. Chat questions and the selected demo profile are sent to your own backend on submission; no third-party service receives them. Accounts and hashed session tokens persist in the frontend server account store; passwords use salted scrypt hashes and the browser receives an HttpOnly session cookie. The demo backend has no consequential write endpoints.
 
 ## Data and integration boundaries
 
@@ -82,9 +84,9 @@ npm run test:e2e
 ## 2–3 minute judge demo
 
 1. Landing → dashboard: show tomorrow's AQI 286 peak and 7:00–10:30 AM window.
-2. **View safer route** opens the 9:05 AM delayed cleaner-route plan (31% timing scenario).
-3. Compare routes and select the balanced 8:55 AM plan (28% route-only reduction).
-4. Automations: cancel once to show consent, then **Allow once** for the 6:30 AM purifier plan.
+2. Sign in using the demo button, or `demo@vayurakshak.ai` / `Breathe@123`. **View safer route** opens the balanced 8:55 AM plan (28% estimated route reduction).
+3. Compare routes, then review the explainable 74/100 indoor protection score.
+4. Automations: cancel once to show consent, then **Allow once** for the 6:30 AM purifier plan. Show the scheduler/audit log and pause tomorrow to demonstrate cancellation.
 5. Calendar Guard: choose a lower-AQI slot and approve a suggestion; the original event remains.
 6. Health Insights: preview a wellness summary and finish with “You stay in control.”
 

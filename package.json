@@ -18,6 +18,8 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspace=@vayurakshak/backend && npm run test --workspace=@vayurakshak/frontend",
     "test:e2e": "npm run test:e2e --workspace=@vayurakshak/frontend",
-    "test:deployment": "node scripts/verify-deployment.mjs"
+    "test:deployment": "node scripts/verify-deployment.mjs",
+    "ingest:site": "npm run ingest:site --workspace=@vayurakshak/frontend --",
+    "index:content": "npm run index:content --workspace=@vayurakshak/frontend"
   }
 }

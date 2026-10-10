@@ -6,7 +6,7 @@ import {calculateProtectionRisk,demoProtectionInput,type SensitivityProfile} fro
 export function RiskBreakdownDrawer({onClose}:{onClose:()=>void}){
  const {preferences}=useApp();const ref=useRef<HTMLDialogElement>(null);
  const risk=calculateProtectionRisk({...demoProtectionInput,sensitivity:preferences.personalized?preferences.profile.toLowerCase() as SensitivityProfile:"general"});
- useEffect(()=>{const previous=document.activeElement as HTMLElement;ref.current?.showModal();return()=>{ref.current?.close();previous?.focus();};},[]);
+ useEffect(()=>{const previous=document.activeElement as HTMLElement;const dialog=ref.current;dialog?.showModal();return()=>{dialog?.close();previous?.focus();};},[]);
  return <dialog ref={ref} className="consent-modal risk-drawer" onCancel={onClose} aria-labelledby="breakdown-title"><button className="modal-close icon-button" onClick={onClose} aria-label="Close decision"><X/></button><p className="eyebrow">EXPLAINABLE BY DESIGN</p><h2 id="breakdown-title">Why this protection plan?</h2><p>Weighted outdoor conditions, optional indoor readings, occupancy and preferences.</p><dl className="risk-breakdown">{risk.breakdown.map(f=><div key={f.label}><dt>{f.label}<small>{f.weight}% weight</small></dt><dd>+{f.points}</dd></div>)}<div><dt><strong>Total risk score</strong></dt><dd><strong>{risk.score} / 100</strong></dd></div></dl><p className="fine-print">Whole points are rounded using largest remainders so they sum exactly. Missing indoor readings are excluded and remaining weights normalized. This is decision support, not a medically validated score.</p><button className="button primary mt-4" onClick={onClose}>Understood</button></dialog>;
 }
 export function ProtectionRiskScoreCard(){

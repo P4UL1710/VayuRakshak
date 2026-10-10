@@ -29,19 +29,21 @@ try{
  const frontend=start(path.join(root,"frontend/scripts/start.mjs"),path.join(root,"frontend"),{PORT:String(frontendPort),FRONTEND_HOST:"127.0.0.1",BACKEND_URL:backendBase,BACKEND_TIMEOUT_MS:"300",DEMO_FALLBACK_ENABLED:"true"});
  const frontendBase="http://127.0.0.1:"+frontendPort;
  await ready(frontendBase+"/api/health",frontend);
- const connected=await fetch(frontendBase+"/api/bootstrap");assert.equal(connected.status,200);
+ assert.equal((await fetch(frontendBase+"/api/bootstrap")).status,401);
+ const login=await fetch(frontendBase+"/api/auth/demo",{method:"POST"});assert.equal(login.status,200);const cookie=login.headers.get("set-cookie").split(";")[0];
+ const connected=await fetch(frontendBase+"/api/bootstrap",{headers:{Cookie:cookie}});assert.equal(connected.status,200);
  const payload=await connected.json();assert.equal(payload.backendAvailable,true);assert.equal(payload.data.current.aqi,218);
- const chat=await fetch(frontendBase+"/api/agent",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question:"Which route tomorrow?",profile:"General"})});
+ const chat=await fetch(frontendBase+"/api/agent",{method:"POST",headers:{"Content-Type":"application/json",Cookie:cookie},body:JSON.stringify({question:"Which route tomorrow?",profile:"General"})});
  assert.equal(chat.status,200);assert.equal((await chat.json()).backendAvailable,true);
  const stylesheet=await fetch(frontendBase+"/");const html=await stylesheet.text();const asset=html.match(/href="([^"]+\.css[^"]*)"/)?.[1];assert.ok(asset,"Standalone server must include CSS");assert.equal((await fetch(new URL(asset,frontendBase))).status,200);
  console.log("PASS: compiled backend, frontend standalone, proxy, assistant and static CSS");
  await stop(backend);
- const offline=await fetch(frontendBase+"/api/bootstrap");assert.equal(offline.status,200);
+ const offline=await fetch(frontendBase+"/api/bootstrap",{headers:{Cookie:cookie}});assert.equal(offline.status,200);
  assert.equal((await offline.json()).backendAvailable,false);assert.equal(offline.headers.get("x-vayu-backend"),"offline-demo");
  console.log("PASS: backend outage returns labelled demo fallback");
  await stop(frontend);
  const strict=start(path.join(root,"frontend/scripts/start.mjs"),path.join(root,"frontend"),{PORT:String(frontendPort),FRONTEND_HOST:"127.0.0.1",BACKEND_URL:backendBase,BACKEND_TIMEOUT_MS:"300",DEMO_FALLBACK_ENABLED:"false"});
  await ready(frontendBase+"/api/health",strict);
- assert.equal((await fetch(frontendBase+"/api/bootstrap")).status,503);
+ assert.equal((await fetch(frontendBase+"/api/bootstrap",{headers:{Cookie:cookie}})).status,503);
  console.log("PASS: fallback can be disabled with a runtime environment variable");
 }finally{await Promise.all(children.map(stop));}

@@ -21,6 +21,9 @@ services:
       BACKEND_URL: http://backend:4000
       BACKEND_TIMEOUT_MS: 5000
       DEMO_FALLBACK_ENABLED: "true"
+      AUTH_DATA_DIR: /app/auth-data
+    volumes:
+      - auth-data:/app/auth-data
     ports:
       - "${FRONTEND_PORT:-3000}:3000"
     depends_on:
@@ -28,3 +31,5 @@ services:
         condition: service_healthy
     restart: unless-stopped
     init: true
+volumes:
+  auth-data:

@@ -1,5 +1,5 @@
 ---
-{"title":"VayuRakshak in one minute","slug":"overview","route":"/dashboard","section":"project-overview","tags":["overview","project","vayurakshak","what","minute"],"lastUpdated":"2026-10-08","sourceType":"curated"}
+{"title":"VayuRakshak in one minute","slug":"overview","route":"/","section":"landing-content","tags":["overview","project","vayurakshak","what","minute"],"lastUpdated":"2026-10-08","sourceType":"curated"}
 ---
 # VayuRakshak in one minute
 VayuRakshak AI helps Delhi-NCR residents act before poor air quality affects their routine.

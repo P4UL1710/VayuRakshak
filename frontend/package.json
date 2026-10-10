@@ -9,12 +9,14 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "node --import tsx --test tests/*.test.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "ingest:site": "node scripts/ingest-site.mjs",
+    "index:content": "node scripts/index-content.mjs"
   },
   "dependencies": {
-    "@vayurakshak/shared": "1.0.0",
     "@fontsource-variable/manrope": "^5.3.0",
     "@react-three/fiber": "^9.8.1",
+    "@vayurakshak/shared": "1.0.0",
     "lucide-react": "^1.53.0",
     "next": "^16.4.0",
     "react": "^19.3.0",
@@ -24,14 +26,17 @@
     "three": "^0.186.1"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
     "@playwright/test": "^1.64.0",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@types/three": "^0.186.0",
+    "cheerio": "^1.2.0",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.4.0",
+    "robots-parser": "^3.0.1",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"

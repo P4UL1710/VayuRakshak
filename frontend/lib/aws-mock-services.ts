@@ -1,6 +1,6 @@
 export type ProtectionPolicy={policyName:string;enabled:boolean;trigger:{riskScoreGte:number;hoursBeforeOccupancy:number};action:{device:string;modeByRisk:{"60-79":"standard";"80-100":"turbo"}};notifications:boolean;overrideAllowed:true};
 export const morningPolicy:ProtectionPolicy={policyName:"Morning protection",enabled:false,trigger:{riskScoreGte:60,hoursBeforeOccupancy:.5},action:{device:"bedroom-purifier",modeByRisk:{"60-79":"standard","80-100":"turbo"}},notifications:true,overrideAllowed:true};
-export type WorkflowEvent={id:string;at:string;service:string;message:string;status:"complete"|"pending"|"cancelled"};
+export type WorkflowEvent={id:string;at:string;service:string;message:string;status:"complete"|"pending"|"cancelled"|"skipped"};
 export type ProtectionSchedule={id:string;approvalId:string;at:string;mode:"standard"|"turbo";status:"scheduled"|"cancelled";events:WorkflowEvent[]};
 export interface ProtectionWorkflowAdapter{schedule(approval:{id:string;scope:"once"|"always"},score:number,notifications:boolean):ProtectionSchedule;cancel(schedule:ProtectionSchedule):ProtectionSchedule}
 export function tomorrowAt0630(now=new Date()){
@@ -11,12 +11,12 @@ export const mockProtectionWorkflow:ProtectionWorkflowAdapter={
  schedule(approval,score,notifications){
   if(!approval.id||score<60||score>100)throw new Error("A valid approval and high protection score are required.");
   const at=tomorrowAt0630();const now=new Date().toISOString();
-  const entries:[string,string,"complete"|"pending"][]=[
+  const entries:[string,string,"complete"|"pending"|"skipped"][]=[
    ["Step Functions","Explicit approval validated; device and risk threshold checked.","complete"],
    ["DynamoDB","Approval and schedule recorded in session memory (mock).","complete"],
    ["EventBridge Scheduler","Purifier pre-start scheduled for tomorrow at 6:30 AM IST.","complete"],
    ["Device webhook","Scheduled — no device activated yet. Mock execution awaits 6:30 AM.","pending"],
-   ...(notifications?[["Telegram adapter","Mock confirmation: Bedroom Purifier scheduled for 6:30 AM. No external message sent.","complete"] as [string,string,"complete"]]:[]),
+   notifications?["Telegram adapter","Mock confirmation: Bedroom Purifier scheduled for 6:30 AM. No external message sent.","complete"]:["Telegram adapter","Confirmation skipped: messaging or notifications disabled. No external message sent.","skipped"],
   ];
   return {id:crypto.randomUUID(),approvalId:approval.id,at,mode:score>=80?"turbo":"standard",status:"scheduled",events:entries.map(([service,message,status])=>({id:crypto.randomUUID(),at:now,service,message,status}))};
  },

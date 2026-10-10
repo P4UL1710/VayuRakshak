@@ -1,6 +1,6 @@
 "use client";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Suspense, useMemo, useRef, useState } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Suspense, useMemo, useRef, useState, useEffect } from "react";
 import * as THREE from "three";
 
 const hazeSpots: [number, number, number, string][] = [
@@ -37,6 +37,7 @@ function Wind({ from }: { from: [number, number, number] }) {
     const g = new THREE.BufferGeometry().setFromPoints(c.getPoints(30));
     return new THREE.Line(g, new THREE.LineBasicMaterial({ color: "#14B8A6", transparent: true, opacity: 0.7 }));
   }, [from]);
+  useEffect(()=>()=>{line.geometry.dispose();(line.material as THREE.Material).dispose();},[line]);
   return <primitive object={line} />;
 }
 
@@ -69,9 +70,11 @@ function Globe({ still }: { still: boolean }) {
   );
 }
 
-export default function GlobeScene({ still }: { still: boolean }) {
+function ContextGuard({onFailure}:{onFailure:()=>void}){const gl=useThree(state=>state.gl);useEffect(()=>{const lost=(event:Event)=>{event.preventDefault();onFailure();};gl.domElement.addEventListener("webglcontextlost",lost);return()=>gl.domElement.removeEventListener("webglcontextlost",lost);},[gl,onFailure]);return null;}
+export default function GlobeScene({ still,onFailure }: { still: boolean;onFailure:()=>void }) {
   return (
-    <Canvas camera={{ position: [0, 0, 3.4], fov: 45 }} dpr={[1, 1.5]} frameloop={still ? "demand" : "always"} aria-hidden>
+    <Canvas camera={{ position: [0, 0, 3.4], fov: 45 }} dpr={[1, 1.25]} gl={{antialias:true,powerPreference:"low-power"}} frameloop={still ? "demand" : "always"} aria-hidden>
+      <ContextGuard onFailure={onFailure}/>
       <ambientLight intensity={0.8} /><pointLight position={[3, 3, 3]} intensity={1.2} />
       <Suspense fallback={null}><Globe still={still} /></Suspense>
     </Canvas>

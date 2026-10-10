@@ -1,4 +1,5 @@
 import "server-only";
+import {getSessionUser} from "@/lib/auth/session";
 import {NextResponse} from "next/server";
 import {createDemoSnapshot,isBootstrapResponse,type BootstrapResponse} from "@vayurakshak/shared/snapshot";
 import {demoReply} from "@vayurakshak/shared/assistant";
@@ -23,6 +24,7 @@ function fallback(endpoint:ReadEndpoint){
  return {data:values[endpoint],source:"demo",backendAvailable:false,warning};
 }
 export async function proxyRead(endpoint:ReadEndpoint){
+ if(!await getSessionUser())return NextResponse.json({error:"Sign in to view your protection workspace."},{status:401});
  try{
   const response=await fetch(backendUrl(endpoint),{cache:"no-store",signal:AbortSignal.timeout(timeout())});
   if(!response.ok)throw new Error("Backend request failed");
@@ -36,6 +38,7 @@ export async function proxyRead(endpoint:ReadEndpoint){
  }
 }
 export async function proxyAgent(question:string,profile:Profile){
+ if(!await getSessionUser())return NextResponse.json({error:"Sign in to ask your air guardian."},{status:401});
  try{
   const response=await fetch(backendUrl("agent"),{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({question,profile}),cache:"no-store",signal:AbortSignal.timeout(timeout())});
   if(!response.ok)throw new Error("Backend assistant unavailable");

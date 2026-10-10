@@ -22,4 +22,4 @@ export function calculateProtectionRisk(input:ProtectionRiskInput){
  const action=score<30?"Eco monitoring":score<60?"Suggest standard filtration":score<80?"Pre-start standard filtration":"Pre-start higher filtration and review indoor guidance";
  return {score,band,action,breakdown,indoorAvailable,availableWeight};
 }
-export const demoProtectionInput:ProtectionRiskInput={forecastAqi:286,peakDurationHours:3.5,indoorPm25:58,minutesUntilOccupancy:30,sensitivity:"asthma",ventilationRisk:"medium"};
+export const demoProtectionInput:ProtectionRiskInput={forecastAqi:286,peakDurationHours:3.5,indoorPm25:54,minutesUntilOccupancy:30,sensitivity:"asthma",ventilationRisk:"medium"};

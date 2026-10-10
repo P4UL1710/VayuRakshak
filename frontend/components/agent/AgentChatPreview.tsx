@@ -6,7 +6,7 @@ import {PrivacyConsentModal} from "@/components/ui/PrivacyConsentModal";
 import {useApp} from "@/components/layout/AppProvider";
 const initial=[{role:"user",text:"AQI near IIT Delhi?"},{role:"agent",text:"Current AQI is 218 — Poor in this demo. PM2.5 is elevated. Tomorrow morning’s commute has a higher estimated exposure risk."},{role:"user",text:"What should I do?"},{role:"agent",text:"Leave at 8:55 AM and use the Balanced Route. This may reduce estimated exposure by 28%. Your purifier plan is ready for approval."}];
 export function AgentChatPreview({expanded=false}:{expanded?:boolean}){
- const {approve,setRule,toast,preferences,deleted}=useApp();const [messages,setMessages]=useState(initial);const [input,setInput]=useState("");const [consent,setConsent]=useState(false);const [pending,setPending]=useState(false);
+ const {approve,preferences,deleted,policy}=useApp();const [messages,setMessages]=useState(initial);const [input,setInput]=useState("");const [consent,setConsent]=useState(false);const [pending,setPending]=useState(false);
  async function send(e:React.FormEvent){
   e.preventDefault();if(!input.trim()||pending)return;const question=input.trim();
   setMessages(m=>[...m,{role:"user",text:question}]);setInput("");setPending(true);
@@ -21,5 +21,5 @@ export function AgentChatPreview({expanded=false}:{expanded?:boolean}){
  <div className="quick-actions"><Link className="button secondary" href="/routes">View route ↗</Link><button className="button secondary" disabled={!preferences.services.Purifier} onClick={()=>setConsent(true)}>Approve purifier plan</button><Link href="/health" className="button secondary">See protection plan</Link></div>
  <form className="chat-form" onSubmit={send}><input aria-label="Ask your air guardian" value={input} onChange={e=>setInput(e.target.value)} placeholder="Ask about your air, routes or plan…" maxLength={500} disabled={pending}/><button className="icon-button" type="submit" aria-label="Send question" disabled={!input.trim()||pending}><Send size={16}/></button></form>{pending&&<p role="status" className="fine-print mt-2">Preparing your demo reply…</p>}
  <p className="fine-print mt-3 flex items-center gap-1.5"><ShieldCheck size={11}/> Suggestions first. Your approval, always.</p>
- {consent&&<PrivacyConsentModal title="Approve purifier pre-start?" description="Allow VayuRakshak to activate your Bedroom Purifier at 6:30 AM tomorrow because AQI is forecast to exceed 200?" allowAlways onCancel={()=>setConsent(false)} onConfirm={scope=>{approve("purifier",scope);setRule("purifier",true);setConsent(false);toast("Demo: Scheduled for tomorrow at 6:30 AM.");}}/>}</section>;
+ {consent&&<PrivacyConsentModal title="Approve purifier pre-start?" description={`Allow VayuRakshak to activate your Bedroom Purifier at 6:30 AM tomorrow because your Indoor Protection Risk Score is high? Standing permission is limited to this device and morning schedule at risk ≥ ${policy.trigger.riskScoreGte}; Standard at 60–79, Turbo at 80–100. You can pause or disable it anytime.`} allowAlways onCancel={()=>setConsent(false)} onConfirm={scope=>{approve("purifier",scope);setConsent(false);}}/>}</section>;
 }

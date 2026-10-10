@@ -61,10 +61,20 @@ Local file: `frontend/.env.local`. In production, set these in the hosting servi
 | `DEMO_FALLBACK_ENABLED` | `true` | Labelled offline demo response when the API is unavailable |
 | `PORT` | `3000` | Frontend listening port in production |
 | `FRONTEND_HOST` | `0.0.0.0` | Bind address for the npm standalone launcher |
+| `AUTH_DATA_DIR` | `/app/auth-data` | Persistent writable account/session directory; npm defaults to `frontend/.runtime` |
+| `APP_ORIGIN` | `https://your-site.example.com` | Exact public origin for account request validation and secure HTTPS cookies |
 
 The browser only calls `/api/*` on its own origin. No backend URL or integration credential needs a `NEXT_PUBLIC_` prefix. `BACKEND_URL` is read at request time, so the same built image can be configured for different backends. See [Next.js runtime environment guidance](https://nextjs.org/docs/app/guides/self-hosting#environment-variables).
 
 With fallback disabled, unavailable upstream data returns HTTP 503; the UI reports the unavailable service while keeping its visibly labelled sample placeholders. It does not claim they are live.
+
+## Login and account persistence
+
+Open `/login` and choose the demo account, or use `demo@vayurakshak.ai` / `Breathe@123`. Workspace pages and frontend backend-proxy endpoints require a session. Registration and sign-out are supported; passwords are hashed with salted scrypt and session cookies are HttpOnly. Auth data is ignored by Git and is never included in the container build.
+
+Docker Compose stores accounts in the `auth-data` named volume. Keep this volume when restarting/rebuilding the app. On a native Node host set `AUTH_DATA_DIR` to a persistent writable location. The npm launcher defaults outside `.next`, so rebuilding does not erase accounts. Set `APP_ORIGIN` to your exact public HTTPS URL behind a reverse proxy.
+
+The local JSON store is a single-host MVP identity implementation. For AWS Amplify/serverless or multiple app instances, replace it with Cognito or another managed identity service and shared session storage. Device approval/audit state remains a visibly simulated browser session; move it to an authenticated server with durable authorization and idempotency before enabling real actions. See [IMPLEMENTATION.md](IMPLEMENTATION.md) for the detailed boundaries.
 
 ## Backend configuration
 
