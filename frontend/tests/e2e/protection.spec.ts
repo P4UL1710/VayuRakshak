@@ -1,8 +1,14 @@
 import {test,expect} from "@playwright/test";
 import {createDemoSnapshot} from "@vayurakshak/shared/snapshot";
-test("every feature page renders without client exceptions",async({page})=>{
+test("every feature page hydrates the current guide without client exceptions",async({page})=>{
  const errors:string[]=[];page.on("pageerror",e=>errors.push(e.message));
- for(const route of ["/","/dashboard","/routes","/map","/fire-tracker","/health","/automations","/calendar","/settings","/agent"]){await page.goto(route);await expect(page.locator("h1").first()).toBeVisible();}
+ // React can recover from a mismatch and report it only through console.error.
+ page.on("console",message=>{if(message.type()==="error"&&/hydrat|server rendered|Minified React error #418/i.test(message.text()))errors.push(message.text());});
+ for(const route of ["/","/dashboard","/routes","/map","/fire-tracker","/health","/automations","/calendar","/settings","/agent"]){
+  await page.goto(route);await expect(page.locator("h1").first()).toBeVisible();
+  await expect(page.locator(".vayu-launcher")).toHaveAttribute("data-guide-ready","true");
+  await expect(page.locator(".vayu-launcher span").last()).toHaveText("Ask Vayu");
+ }
  expect(errors).toEqual([]);
 });
 test("purifier cancellation leaves no approval; explicit approval schedules a demo",async({page})=>{
