@@ -1,6 +1,6 @@
 import {defineConfig} from "@playwright/test";
 export default defineConfig({
- testDir:"./tests/e2e",fullyParallel:false,timeout:45000,
+ testDir:"./tests/e2e",fullyParallel:false,workers:2,timeout:45000,
  globalSetup:"./tests/e2e/auth.setup.ts",
  use:{baseURL:"http://127.0.0.1:3100",storageState:".runtime/playwright-state.json",trace:"retain-on-failure",headless:true},
  reporter:"list",

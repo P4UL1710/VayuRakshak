@@ -17,9 +17,9 @@ Verification: `npm run lint`, `npm run typecheck`, `npm test`, `npm run build`, 
 
 ## Login and hosting
 
-Use **Explore as Pawan — demo account**, or email `demo@vayurakshak.ai` with password `Breathe@123`. Registration and password sign-in also work. Workspace pages and backend proxy APIs require a valid session. Logout revokes the server token. Cookies are HttpOnly and SameSite=Lax, and Secure on HTTPS. Cross-origin account writes are rejected; account login attempts are bounded per process.
+Use **Explore as Pawan — demo account**. Registration and password sign-in also work. Workspace pages and backend proxy APIs require a valid session. Logout revokes the server token. Cookies are HttpOnly and SameSite=Lax, and Secure on HTTPS. Cross-origin account writes are rejected; account login attempts are bounded per process.
 
-Accounts use salted scrypt password hashes; only SHA-256 digests of random session tokens are stored. The npm launcher keeps the store in `frontend/.runtime/accounts.json`, outside the disposable build directory. Set `AUTH_DATA_DIR` to a persistent writable directory and `APP_ORIGIN` to the exact public HTTPS origin when deploying behind a proxy. Docker Compose mounts a persistent account volume. Demo account credentials are deliberately public; it uses only sample data.
+Accounts use salted scrypt password hashes; only SHA-256 digests of random session tokens are stored. The npm launcher keeps the store in `frontend/.runtime/accounts.json`, outside the disposable build directory. Set `AUTH_DATA_DIR` to a persistent writable directory and `APP_ORIGIN` to the exact public HTTPS origin when deploying behind a proxy. Docker Compose mounts a persistent account volume. The public demo button uses only sample data and has no password.
 
 This store supports one Node host, with atomic writes and a file lock. Use Cognito or a managed identity provider plus shared storage before running serverless/multiple instances; no Cognito resources are provisioned. Password recovery, email verification and distributed rate limiting are outside this hackathon prototype. Approval/device state remains in browser memory and resets on refresh independently of the login session.
 

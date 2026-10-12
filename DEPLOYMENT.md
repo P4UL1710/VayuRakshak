@@ -70,7 +70,7 @@ With fallback disabled, unavailable upstream data returns HTTP 503; the UI repor
 
 ## Login and account persistence
 
-Open `/login` and choose the demo account, or use `demo@vayurakshak.ai` / `Breathe@123`. Workspace pages and frontend backend-proxy endpoints require a session. Registration and sign-out are supported; passwords are hashed with salted scrypt and session cookies are HttpOnly. Auth data is ignored by Git and is never included in the container build.
+Open `/login` and choose the demo account. Workspace pages and frontend backend-proxy endpoints require a session. Registration and sign-out are supported; passwords are hashed with salted scrypt and session cookies are HttpOnly. Auth data is ignored by Git and is never included in the container build.
 
 Docker Compose stores accounts in the `auth-data` named volume. Keep this volume when restarting/rebuilding the app. On a native Node host set `AUTH_DATA_DIR` to a persistent writable location. The npm launcher defaults outside `.next`, so rebuilding does not erase accounts. Set `APP_ORIGIN` to your exact public HTTPS URL behind a reverse proxy.
 

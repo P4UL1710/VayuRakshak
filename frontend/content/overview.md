@@ -2,7 +2,7 @@
 {"title":"VayuRakshak in one minute","slug":"overview","route":"/","section":"landing-content","tags":["overview","project","vayurakshak","what","minute"],"lastUpdated":"2026-10-08","sourceType":"curated"}
 ---
 # VayuRakshak in one minute
-VayuRakshak AI helps Delhi-NCR residents act before poor air quality affects their routine.
+VayuRakshak protects you today through air plans and user-approved indoor actions. AirProof helps you document local pollution concerns and build community evidence for tomorrow. Protect yourself today. Fix your air tomorrow.
 
 First, it tracks air conditions and forecasts when pollution risk may rise. The MVP uses clearly labelled illustrative data, not a live sensor feed.
 

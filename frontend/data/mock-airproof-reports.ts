@@ -1,0 +1,3 @@
+import type {PublicReport,PollutionConcernCategory} from "@/lib/airproof/types";
+export const DEMO_REFERENCE_TIME="2026-10-10T16:00:00+05:30";
+export const mockAirProofReports:PublicReport[]=Array.from({length:44},(_,i)=>{const category:PollutionConcernCategory=i<14?"waste_burning":i<23?"construction_dust":"vehicle_idling";const area=i<14?"Hauz Khas":"Outer Ring Road";return {id:`community-demo-${i+1}`,category,observedAt:new Date(Date.parse(DEMO_REFERENCE_TIME)-(i%18)*86400000-(i%3)*3600000).toISOString(),area,latitude:i<14?28.55:28.57,longitude:i<14?77.21:77.23,quality:{score:60+(i%5)*8,level:i%5>=3?"strong":"good",reasons:["Illustrative completeness score"],warnings:["Unverified sample citizen report"]},status:"community_published",demo:true};});

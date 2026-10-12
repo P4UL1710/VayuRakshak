@@ -6,6 +6,8 @@ Updated MVP: see [IMPLEMENTATION.md](IMPLEMENTATION.md) for Vayu Guide, grounded
 
 A complete air-protection hackathon MVP with separately deployable **Next.js frontend** and **Node.js backend**, managed by npm workspaces. TypeScript models and demo data are shared between both services.
 
+AirProof adds the second core pillar: **Fix My Area Tomorrow**. Safe local observations become anonymized community signals and editable evidence drafts. See [AIRPROOF.md](AIRPROOF.md) for the full flow, privacy boundaries and 60-second demo.
+
 ## Quick start
 
 Requires Node 22+ (24 recommended).
@@ -84,7 +86,7 @@ npm run test:e2e
 ## 2–3 minute judge demo
 
 1. Landing → dashboard: show tomorrow's AQI 286 peak and 7:00–10:30 AM window.
-2. Sign in using the demo button, or `demo@vayurakshak.ai` / `Breathe@123`. **View safer route** opens the balanced 8:55 AM plan (28% estimated route reduction).
+2. Sign in using the demo button. **View safer route** opens the balanced 8:55 AM plan (28% estimated route reduction).
 3. Compare routes, then review the explainable 74/100 indoor protection score.
 4. Automations: cancel once to show consent, then **Allow once** for the 6:30 AM purifier plan. Show the scheduler/audit log and pause tomorrow to demonstrate cancellation.
 5. Calendar Guard: choose a lower-AQI slot and approve a suggestion; the original event remains.
